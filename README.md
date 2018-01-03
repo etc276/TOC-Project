@@ -3,12 +3,17 @@
 ## how to run
 1. install python3
 2. install python3-pip
-2. `pip3 install -r requirement.txt`
-3. `python3 run.py`
+3. `pip3 install -r requirement.txt`
+4. `./ngrok http 5000`
+5. paste bot API and url to `app.py`
+6. `python3 run.py`
+
+* if you have trouble in install pygraphviz
+  * [Setup pygraphviz on Ubuntu](https://www.jianshu.com/p/a3da7ecc5303)
 
 ## how to talk
 1. send `start` to start
-2. send `cancel` to cancel
+2. send `cancel` to cancel (back to init)
 3. other option will show on keyboard
 
 ![image](https://github.com/etc276/TOC-Project-2017/blob/master/img/show-fsm.png)

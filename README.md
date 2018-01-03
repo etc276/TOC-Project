@@ -11,21 +11,7 @@
 2. send `cancel` to cancel
 3. other option will show on keyboard
 
-```graphviz
-digraph hierarchy {
-
-                nodesep=1.0
-                
-                node [color=Red,fontname=Courier,shape=circle]
-                
-                edge [color=Black, style=dashed] 
-
-                idle->{beauty deck joke}
-                beauty->{ok}
-                {ok, deck, joke}->{idle}
-                {rank=same;deck joke beauty}
-}
-```
+![image](https://github.com/etc276/TOC-Project-2017/blob/master/img/show-fsm.png)
 
 ## Features
 * get today's beautiful pictures

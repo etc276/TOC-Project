@@ -6,9 +6,11 @@ from flask import Flask, request, send_file
 
 from fsm import TocMachine
 
+import Beauty
+import Deck
 
-API_TOKEN = '455989974:AAG1_pt549X9YV64asFXixuaMl-lchzidgk'
-WEBHOOK_URL = 'https://4c687618.ngrok.io' + '/hook'
+API_TOKEN = ''
+WEBHOOK_URL = '' + '/hook'
 
 
 
@@ -16,45 +18,67 @@ app = Flask(__name__)
 bot = telegram.Bot(token=API_TOKEN)
 machine = TocMachine(
     states=[
-        'user',
-        'state1',
-        'state2'
+        'idle',
+        'beauty',
+        'ok',
+        'deck',
+        'joke'
     ],
     transitions=[
         {
             'trigger': 'advance',
-            'source': 'state1',
-            'dest': 'state1',
-            'conditions': 'is_staying_at_state1'
+            'source': ['idle', 'beauty', 'ok', 'deck', 'joke'],
+            'dest': 'idle',
+            'conditions': 'is_going_back_to_idle'
         },
         {
             'trigger': 'advance',
-            'source': 'state1',
-            'dest': 'user',
-            'conditions': 'is_going_to_user'
+            'source': 'idle',
+            'dest': 'idle',
+            'conditions': 'is_staying_at_idle'
         },
         {
             'trigger': 'advance',
-            'source': 'user',
-            'dest': 'state1',
-            'conditions': 'is_going_to_state1'
+            'source': 'idle',
+            'dest': 'joke',
+            'conditions': 'is_going_to_joke'
         },
         {
             'trigger': 'advance',
-            'source': 'user',
-            'dest': 'state2',
-            'conditions': 'is_going_to_state2'
+            'source': 'beauty',
+            'dest': 'beauty',
+            'conditions': 'is_staying_at_beauty'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'beauty',
+            'dest': 'ok',
+            'conditions': 'is_going_to_ok'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'idle',
+            'dest': 'beauty',
+            'conditions': 'is_going_to_beauty'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'idle',
+            'dest': 'deck',
+            'conditions': 'is_going_to_deck'
         },
         {
             'trigger': 'go_back',
             'source': [
-                'state1',
-                'state2'
+                'beauty',
+                'ok',
+                'deck',
+                'joke'
             ],
-            'dest': 'user'
+            'dest': 'idle'
         }
     ],
-    initial='user',
+    initial='idle',
     auto_transitions=False,
     show_conditions=True,
 )
